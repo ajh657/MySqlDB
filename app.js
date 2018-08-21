@@ -24,12 +24,22 @@ client.on('ready', () => {
      } 
 });
 
+client.on('guildMemberAdd', member => {
+  console.log(member.username)
+});
+
 function DataBaseTest(Username, userid, connection) {
-  connection.query(`SELECT * from DiscordLevel where DiscordID = ${userid}`, function (error, results, fields) {
+  connection.query(`SELECT * from Data where DiscordID = ${userid}`, function (error, results, fields) {
     if (error) throw error;
     if (!results.length) {
-      var Default = 0;
-      connection.query(`INSERT INTO DiscordLevel (DiscordID, DiscordLevelPoints, DiscordLevelLevel, DiscordLevelName) VALUES (${userid}, ${Default}, ${Default}, ${Username})`, function (error, results, fields) {
+      var UsernameS = String(Username);
+      var useridS = String(userid);
+      console.log("added User:")
+      console.log(useridS);
+      console.log(UsernameS);
+      console.log();
+      var sql = 'INSERT INTO Data (DiscordID, DiscordName, Level, Points) VALUES (' + connection.escape(useridS)+ ", " + connection.escape(UsernameS) + ', 0, 0)';
+      connection.query(sql, function (error, results, fields) {
         if (error) throw error;
         
       });
