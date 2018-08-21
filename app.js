@@ -28,7 +28,8 @@ function DataBaseTest(Username, userid, connection) {
   connection.query(`SELECT * from DiscordLevel where DiscordID = ${userid}`, function (error, results, fields) {
     if (error) throw error;
     if (!results.length) {
-      connection.query(`INSERT INTO DiscordLevel (DiscordID, DiscordLevelPoints, DiscordLevelLevel, DiscordLevelName) VALUES (${userid}, 0, 0, ${Username})`, function (error, results, fields) {
+      var Default = 0;
+      connection.query(`INSERT INTO DiscordLevel (DiscordID, DiscordLevelPoints, DiscordLevelLevel, DiscordLevelName) VALUES (${userid}, ${Default}, ${Default}, ${Username})`, function (error, results, fields) {
         if (error) throw error;
         
       });
