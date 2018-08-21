@@ -1,0 +1,23 @@
+{
+  "name": "mysqldb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajh657/MySqlDB.git"
+  },
+  "author": "ajh657",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajh657/MySqlDB/issues"
+  },
+  "homepage": "https://github.com/ajh657/MySqlDB#readme",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "edit-json-file": "^1.1.0"
+  }
+}
