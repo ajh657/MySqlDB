@@ -61,4 +61,4 @@ typings/
 .next
 
 #Connection Files
-Con.json
+Tokens.json

@@ -2,17 +2,25 @@ const editJsonFile = require("edit-json-file");
 const Discord = require('discord.js');
 var mysql      = require('mysql');
 
-let file = editJsonFile(`${__dirname}/Con.json`);
+let JsonData = require("./Tokens.json");
+
+console.log(JsonData.Dtoken);
+
+var MySqlU = JsonData.MySqlU;
+var MySqlP = JsonData.MySqlP;
+var MySqlIP = JsonData.MySqlIP;
+var Dtoken = JsonData.Dtoken;
+
 var SQLconnection = mysql.createConnection({
-  host     : file.get("MySqlIP"),
-  user     : file.get("MySqlU"),
-  password : file.get("MySqlP"),
+  host     : MySqlIP,
+  user     : MySqlU,
+  password : MySqlP,
   database : 'DiscordLevel'
 });
 const client = new Discord.Client();
 
 
-client.login(file.get("Dtoken"));
+client.login(JsonData.Dtoken);
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -21,6 +29,7 @@ client.on('ready', () => {
         var User = client.users.array()[Count];
         DataBaseTest(User.username, User.id, SQLconnection);
         //console.log(User.username);
+        process.exit();
      } 
 });
 
@@ -47,8 +56,4 @@ function DataBaseTest(Username, userid, connection) {
     };
   });
 }
-
-//console.log(file.get("Dtoken"));
-//console.log(file.get("MySqlU"));
-//console.log(file.get("MySqlP"));
 
