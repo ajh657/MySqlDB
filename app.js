@@ -68,5 +68,11 @@ client.on('message', msg => {
       msg.channel.send("Error: Command Not Found");
         break;
     }
+  } else {
+    var sql = 'select Points from Data Where DiscordID =' + SQLconnection.escape(msg.author.id);
+    SQLconnection.query(sql, function (error, results, fields) {
+      if (error) throw error;
+      console.log(results[0])
+    });
   }
 });
