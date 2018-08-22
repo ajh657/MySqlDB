@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 const mysql = require('mysql');
 const JsonData = require("./Tokens.json");
 
-console.log(JsonData.Dtoken);
-
 var MySqlU = JsonData.MySqlU;
 var MySqlP = JsonData.MySqlP;
 var MySqlIP = JsonData.MySqlIP;
@@ -27,7 +25,6 @@ client.on('ready', () => {
     var User = client.users.array()[Count];
     DataBaseTest(User.username, User.id, SQLconnection);
     //console.log(User.username);
-    process.exit();
   }
 });
 
@@ -54,3 +51,21 @@ function DataBaseTest(Username, userid, connection) {
     };
   });
 }
+
+var Prefix = JsonData.Prefix;
+
+client.on('message', msg => {
+  if (msg.content[0] == Prefix) {
+    var Command = msg.content.substr(1);
+    console.log(Command);
+    switch (Command) {
+      case "test":
+      msg.channel.send("Test");
+        break;
+    
+      default:
+      msg.channel.send("Error: Command Not Found");
+        break;
+    }
+  }
+});
