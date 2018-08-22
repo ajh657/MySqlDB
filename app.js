@@ -1,8 +1,6 @@
-const editJsonFile = require("edit-json-file");
-const Discord = require('discord.js');
-var mysql      = require('mysql');
-
-let JsonData = require("./Tokens.json");
+const Discord  = require('discord.js');
+const mysql    = require('mysql');
+const JsonData = require("./Tokens.json");
 
 console.log(JsonData.Dtoken);
 
