@@ -1,5 +1,5 @@
-const Discord  = require('discord.js');
-const mysql    = require('mysql');
+const Discord = require('discord.js');
+const mysql = require('mysql');
 const JsonData = require("./Tokens.json");
 
 console.log(JsonData.Dtoken);
@@ -10,10 +10,10 @@ var MySqlIP = JsonData.MySqlIP;
 var Dtoken = JsonData.Dtoken;
 
 var SQLconnection = mysql.createConnection({
-  host     : MySqlIP,
-  user     : MySqlU,
-  password : MySqlP,
-  database : 'DiscordLevel'
+  host: MySqlIP,
+  user: MySqlU,
+  password: MySqlP,
+  database: 'DiscordLevel'
 });
 const client = new Discord.Client();
 
@@ -21,14 +21,14 @@ const client = new Discord.Client();
 client.login(JsonData.Dtoken);
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
-    var Count;
-    for(Count in client.users.array()){
-        var User = client.users.array()[Count];
-        DataBaseTest(User.username, User.id, SQLconnection);
-        //console.log(User.username);
-        process.exit();
-     } 
+  console.log(`Logged in as ${client.user.tag}!`);
+  var Count;
+  for (Count in client.users.array()) {
+    var User = client.users.array()[Count];
+    DataBaseTest(User.username, User.id, SQLconnection);
+    //console.log(User.username);
+    process.exit();
+  }
 });
 
 client.on('guildMemberAdd', member => {
@@ -45,13 +45,12 @@ function DataBaseTest(Username, userid, connection) {
       console.log(useridS);
       console.log(UsernameS);
       console.log();
-      var sql = 'INSERT INTO Data (DiscordID, DiscordName, Level, Points) VALUES (' + connection.escape(useridS)+ ", " + connection.escape(UsernameS) + ', 0, 0)';
+      var sql = 'INSERT INTO Data (DiscordID, DiscordName, Level, Points) VALUES (' + connection.escape(useridS) + ", " + connection.escape(UsernameS) + ', 0, 0)';
       connection.query(sql, function (error, results, fields) {
         if (error) throw error;
-        
+
       });
 
     };
   });
 }
-
