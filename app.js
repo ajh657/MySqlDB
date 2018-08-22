@@ -29,11 +29,12 @@ client.on('ready', () => {
 });
 
 client.on('guildMemberAdd', member => {
-  console.log(member.username)
+  console.log(member.user.username);
+  DataBaseTest(member.user.username, member.id, SQLconnection);
 });
 
 function DataBaseTest(Username, userid, connection) {
-  connection.query(`SELECT * from Data where DiscordID = ${userid}`, function (error, results, fields) {
+  connection.query("SELECT * from Data where DiscordID = " + connection.escape(userid), function (error, results, fields) {
     if (error) throw error;
     if (!results.length) {
       var UsernameS = String(Username);
