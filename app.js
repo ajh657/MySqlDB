@@ -57,14 +57,13 @@ var Prefix = JsonData.Prefix;
 
 client.on('message', msg => {
   if (msg.content[0] == Prefix) {
-    var Command = msg.content.substr(1);
-    var args = Command.split("");
-    console.log(Command);
-    switch (Command) {
-      case "test":
+    var args = msg.content.split(" ");
+    console.log(args[0]);
+    switch (args[0]) {
+      case "!test":
       msg.channel.send("Test");
         break;
-      case "purge":
+      case "!purge":
         msg.channel.bulkDelete(parseInt(args[1]));
         msg.channel.send(":fire: Messages Deleted :fire:");
         break;
@@ -72,15 +71,17 @@ client.on('message', msg => {
       msg.channel.send("Error: Command Not Found");
         break;
     }
-  } else {
+  } else if(msg.author.id != "481383926506455040") {
     var sql = 'select Points from Data Where DiscordID =' + SQLconnection.escape(msg.author.id);
     var Points = 0;
     SQLconnection.query(sql, function (error, results, fields) {
       if (error) throw error;
-      Points = results[0];
-      Points = Points + 1;
-      Points = Points + 1;
-      console.log(JSON.stringify(results[0]));
+      Points = parseInt(results[0].Points);
+      Points++;
+      Points++;
+      console.log(Points);
     });
+    
+
   }
 });
