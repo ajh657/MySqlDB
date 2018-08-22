@@ -62,16 +62,16 @@ client.on('message', msg => {
     console.log(Command);
     switch (Command) {
       case "test":
-      msg.channel.send("Test");
+        msg.channel.send("Test");
         break;
-        
+
       case "purge":
         msg.channel.bulkDelete(parseInt(args[1]));
         msg.channel.send(":fire: Messages Deleted :fire:");
         break;
 
       default:
-      msg.channel.send("Error: Command Not Found");
+        msg.channel.send("Error: Command Not Found");
         break;
     }
   } else {
