@@ -58,21 +58,31 @@ var Prefix = JsonData.Prefix;
 client.on('message', msg => {
   if (msg.content[0] == Prefix) {
     var Command = msg.content.substr(1);
+    var args = Command.split("");
     console.log(Command);
     switch (Command) {
       case "test":
       msg.channel.send("Test");
         break;
-    
+        
+      case "purge":
+        msg.channel.bulkDelete(parseInt(args[1]));
+        msg.channel.send(":fire: Messages Deleted :fire:");
+        break;
+
       default:
       msg.channel.send("Error: Command Not Found");
         break;
     }
   } else {
     var sql = 'select Points from Data Where DiscordID =' + SQLconnection.escape(msg.author.id);
+    var Points = 0;
     SQLconnection.query(sql, function (error, results, fields) {
       if (error) throw error;
-      console.log(results[0])
+      Points = results[0];
+      Points = Points + 1;
+      Points = Points + 1;
+      console.log(JSON.stringify(results[0]));
     });
   }
 });
