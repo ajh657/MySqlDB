@@ -61,27 +61,44 @@ client.on('message', msg => {
     console.log(args[0]);
     switch (args[0]) {
       case "!test":
-      msg.channel.send("Test");
+        msg.channel.send("Test");
         break;
       case "!purge":
         msg.channel.bulkDelete(parseInt(args[1]));
         msg.channel.send(":fire: Messages Deleted :fire:");
         break;
       default:
-      msg.channel.send("Error: Command Not Found");
+        msg.channel.send("Error: Command Not Found");
         break;
     }
-  } else if(msg.author.id != "481383926506455040") {
+  } else if (msg.author.id != "481383926506455040") {
     var sql = 'select Points from Data Where DiscordID =' + SQLconnection.escape(msg.author.id);
     var Points = 0;
+    var Level = 0;
     SQLconnection.query(sql, function (error, results, fields) {
       if (error) throw error;
       Points = parseInt(results[0].Points);
       Points++;
       Points++;
-      console.log(Points);
+      if (Points >= 100) {
+        var sql = 'select Level from Data Where DiscordID =' + SQLconnection.escape(msg.author.id);
+        SQLconnection.query(sql, function (error, results, fields) {
+          if (error) throw error;
+          Level = parseInt(results[0].Level);
+          Level += 1;
+          var sql = 'UPDATE `Data` SET `Level` =' + SQLconnection.escape(Level) + ' , `Points` = ' + SQLconnection.escape(0) + ' WHERE (`DiscordID` = ' + SQLconnection.escape(msg.author.id) + ')';
+          SQLconnection.query(sql, function (error, results, fields) {
+            if (error) throw error;
+            msg.channel.send("<@" + msg.author.id + "> Has Leveld up to " + Level + ". Level.");
+          });
+        });
+      } else {
+        var sql = 'UPDATE `Data` SET `Points` = ' + SQLconnection.escape(Points) + ' WHERE (`DiscordID` = ' + SQLconnection.escape(msg.author.id) + ')';
+        SQLconnection.query(sql, function (error, results, fields) {
+          if (error) throw error;
+          console.log(results)
+        });
+      }
     });
-    
-
   }
 });
